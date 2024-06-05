@@ -6,17 +6,18 @@ import {
   TouchableOpacity,
   StyleSheet,
   Platform,
+  Image
 } from "react-native";
 import Header  from './../src/components/Header';
 import Timer  from './../src/components/Timer';
 import { Audio } from "expo-av";
 
-const colors = ["#F7DC6F","#A2D9CE","#D7BDE2"];
+const colors = ["#A9DFBF","#EFFBA8","#D5F0FE"];
 
 export default function HomeScreen() {
   const [isWorking, setIsWorking] = useState(false);
   const [time, setTime] = useState(25*60);
-  const [currentTime, setCurrentTime] = useState( "POMO" || "SHORT" || "BREAK" );
+  const [currentTime, setCurrentTime] = useState( "WORK" | "SHORT" | "BREAK" );
   const [isActive, setIsActive] = useState(false);
   useEffect(()=>{
     let interval= null;
@@ -32,7 +33,7 @@ export default function HomeScreen() {
     if(time == 0){
       setIsActive(false);
       setIsWorking((prev)=>!prev);
-      setTime(Number(currentTime) === 0 ? 25*60 : Number(currentTime) === 1 ? 5*60 :15*60);
+      setTime(Number(currentTime) === 0 ? 25*60 : Number(currentTime) === 1 ? 15*60 :5*60);
     }
 
     return ()=> clearInterval(interval);
@@ -52,14 +53,23 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={[styles.container, {backgroundColor: colors[Number(currentTime) || 0]}]}>
       <View style={{
-          flex: 0.5,
+          flex: 0.6,
           paddingHorizontal: 15,  
           paddingTop: Platform.OS === "android" && 35 }}>
-        <Text style={styles.text}>Pomodoro</Text>
+        <View style={styles.containersheader}>
+            <View style={styles.leftContainer}>
+                <Image source={require('../assets/images/Logo-PlayStore.png')} style={styles.image}>
+                </Image>
+            </View>
+            <View style={styles.rightContainer}>
+            <Text style={styles.title}>Pomodoro</Text>
+                
+            </View>
+        </View>
         <Header  currentTime={currentTime} setCurrentTime={setCurrentTime} setTime={setTime}/>
         <Timer time={time}/>
         <TouchableOpacity onPress={handleStartStop} style={styles.button}>
-          <Text style={{color:"white", fontWeight: "bold"}}>
+          <Text style={{color:"white",fontSize:22, fontWeight: "bold"}}>
             {isActive ? "STOP": "START"}
           </Text>
         </TouchableOpacity>
@@ -73,16 +83,31 @@ const styles = StyleSheet.create({
   container: {
     flex:1
   },
-  text:{
-    fontSize:32,
-    fontWeight: "bold"
-  },
   button:{
     alignItems:"center",
-    backgroundColor:"#333333",
-    padding:15,
-    marginTop:15,
-    borderRadius:15,
-    marginBotton:20,
+    backgroundColor:"#1C2833",
+    padding:10,
+    marginTop:20,
+    borderRadius:25,
+    marginBotton:10,
+  },
+  containersheader:{
+    flexDirection:'row',
+  },
+  leftContainer:{
+  },
+  rightContainer:{
+      marginLeft:2
+
+  },
+  title:{
+    fontSize:37,
+    fontWeight: "bold",
+    color:'#1C2833'
+  },
+  image:{
+      width:50,
+      height:50,
+
   }
 });

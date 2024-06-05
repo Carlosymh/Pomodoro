@@ -12,15 +12,17 @@ export default function Timer({time}){
 const styles = StyleSheet.create({
     timeContairner:{
         flex:1,
+        width:'80%',
+        marginHorizontal:'auto',
         justifyContent:"center",
-        backgroundColor: "#f2f2f2",
+        backgroundColor: "#F2F3F2",
         padding:15,
-        borderRadius:15,
-
+        borderRadius:250,
     },
     time:{
         fontSize:80,
         fontWeight:"bold",
-        textAlign:"center"
+        textAlign:"center",
+        color:'#1C2833'
     }
 })

@@ -1,10 +1,9 @@
 import { View, Text, TouchableOpacity, StyleSheet} from "react-native"
 
-const options = ["Pomodoro", "Short Break", "Long Break"]
+const options = ["Work", "Long Break", "Short Break"]
 export default function Header({currentTime, setCurrentTime,setTime}){
-
     function handlesPress(index){
-        const newTime= index === 0 ? 25: index === 1 ? 5 :15;
+        const newTime= index === 0 ? 25: index === 1 ? 15 :5;
         setCurrentTime(index);
         setTime(newTime*60);
 
@@ -17,10 +16,10 @@ export default function Header({currentTime, setCurrentTime,setTime}){
             onPress={()=>handlesPress(index)}
             style={[
                 styles.itemStyle,
-                currentTime !== index && {borderColor: "transparent"},
+                currentTime !== index && {borderColor: "transparent",backgroundColor: "transparent"},
                 ]}
             >
-                <Text style={{fontWeight:"bold "}}>{item}</Text>
+                <Text style={{fontWeight:"bold",fontSize:15, color:'#1C2833'}}>{item}</Text>
             </TouchableOpacity>
         
         ))}
@@ -36,6 +35,7 @@ const styles = StyleSheet.create({
         padding:5,
         borderRadius:10,
         borderColor:"white",
+        backgroundColor:"rgba(255, 255, 255, 0.8)",
         marginVertical:20,
 
     }
