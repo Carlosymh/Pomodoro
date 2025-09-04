@@ -53,13 +53,14 @@ Join our community of developers creating universal apps.
 for gerenarate the .aab follow the next steps 
 
 ```
-npm install -g eas-cli
+npm install -g eas-cli expo-cli
+npm install @expo/metro-config@~0.18.11
 
 eas login
 
 eas build:configure
-
-eas build --platform android
+   
+eas build --profile production --platform android
 
 eas build:download [build_id]
 ```
