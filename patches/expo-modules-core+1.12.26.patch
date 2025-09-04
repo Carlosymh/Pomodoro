@@ -1,0 +1,39 @@
+diff --git a/node_modules/expo-modules-core/android/src/main/java/expo/modules/adapters/react/permissions/PermissionsService.kt b/node_modules/expo-modules-core/android/src/main/java/expo/modules/adapters/react/permissions/PermissionsService.kt
+index ae0a811..2faa7f6 100644
+--- a/node_modules/expo-modules-core/android/src/main/java/expo/modules/adapters/react/permissions/PermissionsService.kt
++++ b/node_modules/expo-modules-core/android/src/main/java/expo/modules/adapters/react/permissions/PermissionsService.kt
+@@ -244,23 +244,23 @@ open class PermissionsService(val context: Context) : InternalModule, Permission
+    *
+    * @param permissions [android.Manifest.permission]
+    */
+-  protected fun delegateRequestToActivity(permissions: Array<out String>, listener: PermissionsResponseListener) {
+-    addToAskedPermissionsCache(permissions)
++  protected fun delegateRequestToActivity(permissions: Array<out String>?, listener: PermissionsResponseListener) {
++    addToAskedPermissionsCache(permissions ?: arrayOf())
+ 
+     val currentActivity = mActivityProvider?.currentActivity
+     if (currentActivity is PermissionAwareActivity) {
+-      synchronized(this@PermissionsService) {
+-        if (mCurrentPermissionListener != null) {
+-          mPendingPermissionCalls.add(permissions to listener)
+-        } else {
+-          mCurrentPermissionListener = listener
+-          currentActivity.requestPermissions(permissions, PERMISSIONS_REQUEST, createListenerWithPendingPermissionsRequest())
++        synchronized(this@PermissionsService) {
++            if (mCurrentPermissionListener != null) {
++                mPendingPermissionCalls.add((permissions ?: arrayOf()) to listener)
++            } else {
++                mCurrentPermissionListener = listener
++                currentActivity.requestPermissions(permissions ?: arrayOf(), PERMISSIONS_REQUEST, createListenerWithPendingPermissionsRequest())
++            }
+         }
+-      }
+     } else {
+-      listener.onResult(parseNativeResult(permissions, IntArray(permissions.size) { PackageManager.PERMISSION_DENIED }))
++        listener.onResult(parseNativeResult(permissions ?: arrayOf(), IntArray(permissions?.size ?: 0) { PackageManager.PERMISSION_DENIED }))
+     }
+-  }
++}
+ 
+   private fun createListenerWithPendingPermissionsRequest(): PermissionListener {
+     return PermissionListener { requestCode, receivePermissions, grantResults ->
