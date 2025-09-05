@@ -21,10 +21,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.yovher.pomodoroTimer",
-      "versionCode": 392025,
-      "targetSdkVersion": 35,
-      "compileSdkVersion": 35,
-      "buildToolsVersion": "35.0.0"
+      "versionCode": 492025
     },
     "web": {
       "bundler": "metro",
