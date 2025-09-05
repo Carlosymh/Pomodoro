@@ -21,7 +21,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.yovher.pomodoroTimer",
-      "versionCode": 492025
+      "versionCode": 1262026
     },
     "web": {
       "bundler": "metro",
